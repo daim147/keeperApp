@@ -2,7 +2,7 @@ import React from "react";
 import { Header } from "./component/header";
 import { Footer } from "./component/footer";
 import { Note } from "./component/note";
-import { CreateForm, update } from "../src/component/createForm";
+import { CreateForm } from "../src/component/createForm";
 
 class App extends React.Component {
   //! Data
@@ -43,9 +43,6 @@ class App extends React.Component {
   editNotes = (index) => {
     this.deleteNotes(index);
     const data = this.state.data[index];
-    // CreateForm.update();
-    update(data);
-    // console.log(data);
   };
   //! Render Data into DOM
   render() {
