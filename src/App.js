@@ -31,6 +31,7 @@ class App extends React.Component {
   };
   // ! Delete specific notes from state
   deleteNotes = (notes) => {
+    console.log("YEs UPdates");
     this.setState((prev) => {
       prev.data.splice(notes, 1);
       return {
