@@ -19,6 +19,10 @@ class App extends React.Component {
         editable: false,
       },
     ],
+    searchTerm: {
+      title: "",
+      content: "",
+    },
   };
   // ! Add Notes
   addNotes = (data) => {
@@ -31,7 +35,6 @@ class App extends React.Component {
   };
   // ! Delete specific notes from state
   deleteNotes = (notes) => {
-    console.log("YEs UPdates");
     this.setState((prev) => {
       prev.data.splice(notes, 1);
       return {
@@ -43,13 +46,45 @@ class App extends React.Component {
   editNotes = (index) => {
     this.deleteNotes(index);
     const data = this.state.data[index];
+
+    this.setState({
+      searchTerm: {
+        title: data.title,
+        content: data.content,
+      },
+    });
+  };
+  //! Change Search Term
+  changeSearch = (val) => {
+    let name = val.target.name;
+    let value = val.target.value;
+    this.setState((prev) => {
+      prev.searchTerm[name] = value;
+      return {
+        ...prev,
+      };
+    });
+  };
+  // ! Clear Search Term
+  clear = () => {
+    this.setState({
+      searchTerm: {
+        title: "",
+        content: "",
+      },
+    });
   };
   //! Render Data into DOM
   render() {
     return (
       <div>
         <Header />
-        <CreateForm handler={this.addNotes} />
+        <CreateForm
+          handler={this.addNotes}
+          data={this.state.searchTerm}
+          inputHandler={this.changeSearch}
+          clearInput={this.clear}
+        />
         <Note
           deleteEvent={this.deleteNotes}
           notes={this.state}

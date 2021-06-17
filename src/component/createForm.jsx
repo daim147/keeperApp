@@ -56,40 +56,36 @@ import React from "react";
 // }
 
 export const CreateForm = (props) => {
-  const [inputText, setInput] = useState("");
-  const [TextAreaText, setTextArea] = useState("");
-
+  let title = props.data.title;
+  let content = props.data.content;
   //! Clear form data
-  const clearData = () => {
-    setInput("");
-    setTextArea("");
-  };
+
   //! Send Data to State
   const sendData = (e) => {
     e.preventDefault();
     props.handler({
-      title: inputText,
-      content: TextAreaText,
+      title: title,
+      content: content,
       editable: false,
     });
-    clearData();
+    props.clearInput();
   };
   return (
     <div>
       <form>
         <input
           name="title"
-          onChange={(e) => setInput(e.target.value)}
           placeholder="Title"
-          value={inputText}
+          value={title}
+          onChange={(e) => props.inputHandler(e)}
         />
         <textarea
           name="content"
           className="input"
-          onChange={(e) => setTextArea(e.target.value)}
           placeholder="Take a note..."
           rows="3"
-          value={TextAreaText}
+          onChange={(e) => props.inputHandler(e)}
+          value={content}
         />
         <button onClick={sendData}>Add</button>
       </form>
