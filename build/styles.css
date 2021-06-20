@@ -45,6 +45,7 @@ footer p {
   margin: 16px;
   float: left;
 }
+
 .note h1 {
   font-size: 1.1em;
   margin-bottom: 6px;
@@ -83,7 +84,9 @@ form {
   padding: 15px;
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
+  /* transition: all 3s; */
 }
+
 form input,
 form textarea {
   width: 100%;
