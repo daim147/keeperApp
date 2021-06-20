@@ -1,65 +1,15 @@
 import { useState } from "react";
 import React from "react";
-// let setData;
-// export const update = (data) => {
-//   setData = data;
-//   console.log(setData);
-// };
-// export class CreateForm extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       inputText: setData?.title ? setData.title : "",
-//       TextAreaText: setData?.content ? setData.content : "",
-//     };
-//   }
-
-//   //! Clear form data
-//   clearData = () => {
-//     this.setState({ inputText: "", TextAreaText: "" });
-//   };
-//   //! Send Data to State
-//   sendData = (e) => {
-//     e.preventDefault();
-//     this.state.inputText &&
-//       this.state.TextAreaText &&
-//       this.props.handler({
-//         title: this.state.inputText,
-//         content: this.state.TextAreaText,
-//         editable: false,
-//       });
-//     this.clearData();
-//   };
-//   render() {
-//     return (
-//       <div>
-//         <form>
-//           <input
-//             name="title"
-//             onChange={(e) => this.setState({ inputText: e.target.value })}
-//             placeholder="Title"
-//             value={this.state.inputText}
-//           />
-//           <textarea
-//             name="content"
-//             className="input"
-//             onChange={(e) => this.setState({ TextAreaText: e.target.value })}
-//             placeholder="Take a note..."
-//             rows="3"
-//             value={this.state.TextAreaText}
-//           />
-//           <button onClick={this.sendData}>Add</button>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
-
 export const CreateForm = (props) => {
+  const [bolean, showInput] = useState(false);
   let title = props.data.title;
   let content = props.data.content;
-  //! Clear form data
-
+  // ! Check if there is data in props than expand the form
+  React.useEffect(() => {
+    if (props.data.title !== "") {
+      showInput(true);
+    }
+  });
   //! Send Data to State
   const sendData = (e) => {
     e.preventDefault();
@@ -69,25 +19,43 @@ export const CreateForm = (props) => {
       editable: false,
     });
     props.clearInput();
+    showInput(false);
   };
   return (
     <div>
-      <form>
+      <form
+        style={{
+          height: bolean ? "150px" : "80px",
+          transition: "height 1s",
+        }}
+      >
         <input
           name="title"
           placeholder="Title"
+          required
           value={title}
+          style={{
+            visibility: bolean ? "visible" : "hidden",
+            opacity: bolean ? "1" : "0",
+            height: bolean ? "40px" : "0px",
+            transition: "all 0.5s",
+          }}
           onChange={(e) => props.inputHandler(e)}
         />
         <textarea
           name="content"
           className="input"
+          required
           placeholder="Take a note..."
-          rows="3"
+          style={{
+            height: bolean ? "80px" : "40px",
+            transition: "height 1s",
+          }}
+          onFocus={() => showInput(true)}
           onChange={(e) => props.inputHandler(e)}
           value={content}
         />
-        <button onClick={sendData}>Add</button>
+        {bolean ? <button onClick={sendData}>Add</button> : null}
       </form>
     </div>
   );

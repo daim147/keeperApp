@@ -26,6 +26,9 @@ class App extends React.Component {
   };
   // ! Add Notes
   addNotes = (data) => {
+    if (data.title === "" || data.content === "") {
+      return;
+    }
     this.setState((prev) => {
       prev.data.push(data);
       return {
@@ -53,6 +56,9 @@ class App extends React.Component {
         content: data.content,
       },
     });
+    const target = document.querySelector("#root form");
+    const targetTop = target.offsetTop + target.clientHeight / 2;
+    const targetLeft = target.offsetLeft + target.clientWidth / 2;
   };
   //! Change Search Term
   changeSearch = (val) => {
