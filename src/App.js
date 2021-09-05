@@ -24,6 +24,7 @@ class App extends React.Component {
       content: "",
     },
   };
+
   // ! Add Notes
   addNotes = (data) => {
     if (data.title === "" || data.content === "") {
@@ -36,6 +37,7 @@ class App extends React.Component {
       };
     });
   };
+
   // ! Delete specific notes from state
   deleteNotes = (notes) => {
     this.setState((prev) => {
@@ -103,3 +105,18 @@ class App extends React.Component {
 }
 
 export default App;
+
+// state = {
+//   data: null,
+// };
+// componentDidMount() {
+//   fetch("https://protected-wave-56749.herokuapp.com/")
+//     .then((data) => {
+//       return data.text();
+//     })
+//     .then((data) => this.setState({ data }));
+// }
+
+// render = () => {
+//   return <div dangerouslySetInnerHTML={{ __html: this.state.data }} />;
+// };
